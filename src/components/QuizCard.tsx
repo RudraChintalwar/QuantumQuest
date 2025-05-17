@@ -96,79 +96,19 @@ const QuizCard = ({
     if (answered || timeLeft <= 0) return;
 
     const timer = setTimeout(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          handleAnswer(""); // Auto-submit empty answer when time runs out
-          return 0;
-        }
-        return prev - 1;
-      });
+      setTimeLeft((prev) => prev - 1);
     }, 1000);
 
     return () => clearTimeout(timer);
   }, [timeLeft, answered]);
 
-  // Cursor trail effect - add to DOM
+  // Handle timeout - key logic from the second component
   useEffect(() => {
-    const cursorTrail = document.getElementById("cursor-trail");
-    if (!cursorTrail) {
-      const trail = document.createElement("div");
-      trail.id = "cursor-trail";
-      trail.style.position = "fixed";
-      trail.style.pointerEvents = "none";
-      trail.style.zIndex = "9999";
-      document.body.appendChild(trail);
+    if (timeLeft <= 0 && !answered && !isLockingIn) {
+      setAnswered(true);
+      onAnswer(""); // Auto-submit empty answer when time runs out
     }
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const trail = document.getElementById("cursor-trail");
-      if (trail) {
-        // Create particle
-        const particle = document.createElement("div");
-        particle.className = "cursor-particle";
-
-        // Random color from theme
-        const colors = ["#00F6ED", "#8B00F6", "#FF3CAC"];
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-
-        particle.style.cssText = `
-          position: absolute;
-          width: 5px;
-          height: 5px;
-          background: ${randomColor};
-          border-radius: 50%;
-          left: ${e.clientX}px;
-          top: ${e.clientY}px;
-          pointer-events: none;
-          opacity: 0.8;
-          box-shadow: 0 0 10px ${randomColor};
-          transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-        `;
-
-        trail.appendChild(particle);
-
-        // Animate and remove
-        setTimeout(() => {
-          particle.style.transform = `translate(${
-            (Math.random() - 0.5) * 20
-          }px, ${(Math.random() - 0.5) * 20}px) scale(0)`;
-          particle.style.opacity = "0";
-        }, 10);
-
-        setTimeout(() => {
-          if (trail.contains(particle)) {
-            trail.removeChild(particle);
-          }
-        }, 300);
-      }
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
+  }, [timeLeft, answered, isLockingIn, onAnswer]);
 
   const handleAnswer = (option: string) => {
     if (answered || timeLeft <= 0 || isLockingIn) return;
