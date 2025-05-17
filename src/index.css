@@ -1,0 +1,175 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 18% 5%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 13% 12%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 13% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 185 100% 48%;
+    --primary-foreground: 220 18% 5%;
+
+    --secondary: 270 100% 48%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 223 14% 20%;
+    --muted-foreground: 215 20% 75%;
+
+    --accent: 330 100% 62%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 223 13% 20%;
+    --input: 223 13% 20%;
+    --ring: 185 100% 48%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-futuristic-black text-foreground font-space overflow-x-hidden;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-futuristic-dark;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-futuristic-cyan rounded-full;
+  }
+  
+  /* Custom selection */
+  ::selection {
+    @apply bg-futuristic-violet/30 text-futuristic-cyan;
+  }
+}
+
+@layer components {
+  .glow {
+    @apply relative;
+  }
+  
+  .glow::before {
+    content: "";
+    @apply absolute inset-0 rounded-md -z-10 opacity-75 blur-md;
+  }
+  
+  .glow-cyan::before {
+    @apply bg-futuristic-cyan;
+  }
+  
+  .glow-violet::before {
+    @apply bg-futuristic-violet;
+  }
+  
+  .glow-pink::before {
+    @apply bg-futuristic-pink;
+  }
+  
+  .card-glass {
+    @apply bg-card/50 backdrop-blur-md border border-white/10 shadow-lg;
+  }
+  
+  .gradient-background {
+    background: radial-gradient(circle at 80% 10%, rgba(139, 0, 246, 0.15), transparent 60%),
+               radial-gradient(circle at 20% 80%, rgba(0, 246, 237, 0.15), transparent 60%),
+               radial-gradient(circle at 50% 50%, rgba(11, 12, 16, 0.9), rgba(11, 12, 16, 1) 80%);
+  }
+  
+  .grid-background {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                     linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+  
+  .timer-background {
+    @apply relative overflow-hidden;
+  }
+  
+  .timer-background::after {
+    content: "";
+    @apply absolute top-0 left-0 w-full h-full bg-gradient-to-b from-white/5 to-white/0 opacity-50;
+  }
+  
+  .button-hover-effect {
+    @apply relative overflow-hidden transition-all duration-300;
+  }
+  
+  .button-hover-effect::after {
+    content: "";
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.4) 0%, transparent 50%);
+  }
+  
+  .button-hover-effect:hover::after {
+    @apply opacity-100;
+  }
+  
+  .difficulty-easy {
+    @apply border-futuristic-easy text-futuristic-easy shadow-[0_0_10px_rgba(0,246,237,0.5)];
+  }
+  
+  .difficulty-medium {
+    @apply border-futuristic-violet text-futuristic-violet shadow-[0_0_10px_rgba(139,0,246,0.5)];
+  }
+  
+  .difficulty-hard {
+    @apply border-futuristic-pink text-futuristic-pink shadow-[0_0_10px_rgba(255,60,172,0.5)];
+  }
+  
+  /* New animations for quiz UX */
+  .cursor-particle {
+    filter: blur(1px);
+    animation: fade-out-particle 0.8s forwards ease-out;
+  }
+  
+  @keyframes fade-out-particle {
+    0% { opacity: 0.8; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0); }
+  }
+  
+  .magnetic-hover {
+    transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  
+  @keyframes lock-pulse {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+  }
+  
+  .lock-in-effect {
+    animation: lock-pulse 1s infinite;
+  }
+}
