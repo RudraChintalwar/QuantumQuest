@@ -75,59 +75,6 @@ flowchart TD
     O -->|No| P[Exit]
 ```
 
-## 📂 Project Structure
-
-```
-quantum-quest/
-├── public/
-├── src/
-│   ├── assets/            # Static assets and media
-│   ├── components/        # Reusable React components
-│   │   ├── quiz/          # Quiz-specific components
-│   │   │   ├── QuestionCard.tsx
-│   │   │   ├── Timer.tsx
-│   │   │   ├── QuantumSkip.tsx
-│   │   │   └── ProgressBar.tsx
-│   │   ├── ui/            # General UI elements
-│   │   │   ├── Button.tsx
-│   │   │   ├── Badge.tsx
-│   │   │   ├── Card.tsx
-│   │   │   └── Modal.tsx
-│   ├── contexts/          # State management
-│   │   ├── QuizContext.tsx
-│   │   └── ThemeContext.tsx
-│   ├── data/              # Question database
-│   │   ├── questions.ts
-│   │   └── categories.ts
-│   ├── hooks/             # Custom React hooks
-│   │   ├── useTimer.ts
-│   │   ├── useQuiz.ts
-│   │   └── useAnalytics.ts
-│   ├── pages/             # Main application views
-│   │   ├── Home.tsx
-│   │   ├── Quiz.tsx
-│   │   ├── Results.tsx
-│   │   └── Settings.tsx
-│   ├── styles/            # Global and shared styles
-│   │   ├── globals.css
-│   │   └── animations.css
-│   ├── types/             # TypeScript type definitions
-│   │   ├── quiz.types.ts
-│   │   └── ui.types.ts
-│   ├── utils/             # Utility functions
-│   │   ├── shuffle.ts
-│   │   ├── scoring.ts
-│   │   └── localStorage.ts
-│   ├── App.tsx            # Main application component
-│   └── main.tsx           # Application entry point
-├── .eslintrc.json
-├── .gitignore
-├── index.html
-├── package.json
-├── tsconfig.json
-└── vite.config.ts
-```
-
 ## 🚀 Getting Started
 
 ### Prerequisites
